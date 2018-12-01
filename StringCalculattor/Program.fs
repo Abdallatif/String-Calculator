@@ -21,4 +21,14 @@ let split' (text : string) =
 let split =
   split' >> List.ofArray >> List.map int
 
-let sum = split >> List.sum
+let isNegative = (>) 0
+
+let filterNegative xs =
+  let negatives = List.filter isNegative xs
+  if negatives.Length > 0
+  then
+    let errorMessage = "negative numbers not allowed. " + String.Join(",", negatives) + " was found"
+    errorMessage |> System.ArgumentException |> raise
+  else xs
+
+let sum = split >> filterNegative >> List.sum

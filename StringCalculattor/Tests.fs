@@ -49,3 +49,13 @@ let delimiters =
       let actual = StringCalc.sum "//;\n1;2"
       Expect.equal actual expected "split by a custom delimeter"
   ]
+
+let sumWrapper text = fun _ -> StringCalc.sum text |> ignore
+
+[<Tests>]
+let exceptions =
+  testList "exceptions" [
+    testCase "should raise an exception" <| fun _ ->
+      let wrappedSum = fun _ -> StringCalc.sum "-2" |> ignore
+      Expect.throws (sumWrapper "-1") "negative numbers shouldn't be allowed"
+  ]

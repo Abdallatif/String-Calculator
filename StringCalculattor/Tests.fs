@@ -51,7 +51,7 @@ let delimiters =
 
     testCase "should split by a custom delimeter" <| fun _ ->
       let expected = 3
-      let actual = StringCalc.sum "//;\n1;2"
+      let actual = StringCalc.sum "//[;]\n1;2"
       Expect.equal actual expected "split by a custom delimeter"
   ]
 

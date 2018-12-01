@@ -7,7 +7,7 @@ open System.Text.RegularExpressions
 let defaultDelimiters = [|','; '\n'|]
 
 let (|CustomDelimiters|_|) text =
-    let matches = Regex("^//(.+)\n(.*)$").Match text
+    let matches = Regex("^//\[(.+)\]\n(.*)$").Match text
     if matches.Success
     then Some [matches.Groups.[2].Value; matches.Groups.[1].Value]
     else None

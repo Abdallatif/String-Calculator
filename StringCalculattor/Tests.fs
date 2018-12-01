@@ -43,4 +43,9 @@ let delimiters =
       let expected = 10
       let actual = StringCalc.sum "1\n2,3,4"
       Expect.equal actual expected "split numbers by different delimeters"
+
+    testCase "should split by a custom delimeter" <| fun _ ->
+      let expected = 3
+      let actual = StringCalc.sum "//;\n1;2"
+      Expect.equal actual expected "split by a custom delimeter"
   ]

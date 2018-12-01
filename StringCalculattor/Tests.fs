@@ -24,6 +24,11 @@ let numbers =
       let expected = 25
       let actual = StringCalc.sum "10,2,3,10"
       Expect.equal actual expected "Should return 20 for the sum of '10,2,3,10'"
+    
+    testCase "should ignore numbers bigger than 1000" <| fun _ ->
+      let expected = 2
+      let actual = StringCalc.sum "2,1001"
+      Expect.equal actual expected "Should return 3 for the sum of 1,2"
   ]
 
 [<Tests>]

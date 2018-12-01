@@ -23,7 +23,9 @@ let split =
 
 let isNegative = (>) 0
 
-let filterNegative xs =
+let isBigNumber = (>=) 1000
+
+let checkNegatives xs =
   let negatives = List.filter isNegative xs
   if negatives.Length > 0
   then
@@ -31,4 +33,6 @@ let filterNegative xs =
     errorMessage |> System.ArgumentException |> raise
   else xs
 
-let sum = split >> filterNegative >> List.sum
+let filterBigNumbers = List.filter isBigNumber
+
+let sum = split >> checkNegatives >> filterBigNumbers >> List.sum

@@ -3,7 +3,7 @@ module StringCalc
 
 open System
 
-let delimiters = [|','|]
+let delimiters = [|','; '\n'|]
 
 let split' (text : string) =
   match text with

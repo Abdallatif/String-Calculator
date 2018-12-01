@@ -19,4 +19,9 @@ let tests =
       let expected = 3
       let actual = StringCalc.sum "1,2"
       Expect.equal actual expected "Should return 3 for the sum of 1,2"
+
+    testCase "should return the sum of for multiple numbers" <| fun _ ->
+      let expected = 25
+      let actual = StringCalc.sum "10,2,3,10"
+      Expect.equal actual expected "Should return 20 for the sum of '10,2,3,10'"
   ]

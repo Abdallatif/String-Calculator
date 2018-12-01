@@ -7,15 +7,22 @@ open System.Text.RegularExpressions
 let defaultDelimiters = [|','; '\n'|]
 
 let (|CustomDelimiters|_|) text =
-    let matches = Regex("^//\[(.+)\]\n(.*)$").Match text
+    let matches = Regex("^//(\[.+\])\n(.*)$").Match text
     if matches.Success
-    then Some [matches.Groups.[2].Value; matches.Groups.[1].Value]
+    then
+      let delimeters = Regex("\[(.*?)\]").Match matches.Groups.[1].Value
+      let x = (List.tail [ for g in delimeters.Groups -> g.Value ])
+      Some [matches.Groups.[2].Value; matches.Groups.[1].Value]
     else None
+
+let extractDelimeters text =
+  let delimeters = Regex("\[(.*?)\]").Matches text
+  List.ofSeq delimeters |> List.map (fun (m:Match) -> m.Groups.[1].Value) |> List.toArray
 
 let split' (text : string) =
   match text with
   | "" -> [||]
-  | CustomDelimiters [text; delimeters;] -> text.Split delimeters
+  | CustomDelimiters [text; delimeters;] -> text.Split(extractDelimeters(delimeters), StringSplitOptions.None)
   | _ -> text.Split defaultDelimiters
 
 let split =

@@ -59,6 +59,15 @@ let delimiters =
       let actual = StringCalc.sum "//[***]\n1***2***3"
       Expect.equal actual expected "delimeters could be of any length"
 
+    testCase "should split by multiple custom delimeters" <| fun _ ->
+      let expected = 6
+      let actual = StringCalc.sum "//[*][%]\n1*2%3"
+      Expect.equal actual expected "split by multiple custom delimeters"
+
+    testCase "should split by multiple custom delimeters of any length" <| fun _ ->
+      let expected = 11
+      let actual = StringCalc.sum "//[*][###][%]\n1*2%3###5"
+      Expect.equal actual expected "split by multiple custom delimeters of any length"
   ]
 
 let sumWrapper text = fun _ -> StringCalc.sum text |> ignore
